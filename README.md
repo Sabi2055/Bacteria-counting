@@ -22,10 +22,9 @@ Key results from the associated study:
 Bacteria-counting/
 ├── Assignment.ipynb          # U-Net training / inference notebook
 ├── Location1/                 # Phase-contrast TIFF images (raw microscopy data)
-│   ├── Image_7480...PH.tif
+│   ├── Data Folder/
 │   └── ...
 ├── requirements.txt           # Python dependencies
-├── LICENSE
 └── README.md
 ```
 
@@ -98,6 +97,4 @@ pathogen diagnostics in severe infections. (manuscript in preparation).
 
 This work was supported by the Southern Illinois University (SIU) startup fund and the SIU System Collaborative Grant Award.
 
-## License
 
-See [LICENSE](LICENSE).
