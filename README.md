@@ -10,11 +10,11 @@ Conventional pathogen identification and AST rely on overnight culture-based met
 
 Key results from the associated study:
 
-- **99.81%** training accuracy / **99.78%** validation accuracy (500 epochs), with training/validation loss of 0.0056 / 0.0067
+- **100%** training accuracy and validation accuracy (500 epochs), with training/validation loss of 0.0056 / 0.0067
 - **Dice coefficient 0.8437**, **Jaccard index 0.7297**, recall 0.836, precision 0.8516
 - **96% ± 1%** of individual *E. coli* cells correctly identified on an independent test set, with a low false-positive rate on bacteria-free images
 - Dose-dependent AST for *E. coli* against ciprofloxacin (MIC 0.016 µg/mL) and trimethoprim/sulfamethoxazole (MIC 0.125/2.375 µg/mL), matching standard broth microdilution
-- Extended to clinically relevant conditions: 99% *E. coli* and 92% *S. aureus* correctly identified in the presence of blood cells, with no blood cells misclassified as bacteria
+- Extended to clinically relevant conditions: 100% *E. coli* and 91% *S. aureus* correctly identified in the presence of blood cells, with no blood cells misclassified as bacteria
 
 ## Repository Structure
 
@@ -36,19 +36,18 @@ Bacteria-counting/
 
 **Model:** Fully convolutional U-Net (encoder–decoder with skip connections), trained with the Adam optimizer, binary cross-entropy loss, learning rate 0.0001, on dual NVIDIA RTX A5500 GPUs.
 
-**Dataset:** ~1,200 annotated *E. coli* cells plus negative-control and *S. aureus* images, from 20 full-resolution microscopy images (2076 × 3088 px) split into 7,680 patches of 128 × 128 px. Ground-truth masks were manually annotated in ImageJ. Split: 80% train / 20% validation.
+**Dataset:**  ~1,600 - 1,700 annotated *E. coli* cells plus negative-control and *S. aureus* images, from 19 full-resolution microscopy images (2076 × 3088 px) split into 7,296 patches of 128 × 128 px. Ground-truth masks were manually annotated in ImageJ. Split: 80% train / 20% validation.
 
-**Quantification:** Connected-component labeling on U-Net output masks, with size-threshold filtering (mean ± 2 SD of manually measured single-cell area) for *E. coli*; watershed segmentation + area-based proportional assignment for clustered *S. aureus* cocci.
+**Quantification:** Connected-component labeling on U-Net output masks, with size-threshold filtering (within 95% confidence interval mean ± 2 SD of manually measured single-cell area ) for *E. coli*; watershed segmentation + area-based proportional assignment for clustered *S. aureus* cocci.
 
 ## Data
 
 The `Location*/` folders contain raw phase-contrast TIFF images from microfluidic AST experiments. Each location corresponds to a distinct imaging session/condition (e.g., antibiotic concentration series, clinical-matrix samples).
 
-Large raw imaging datasets that exceed GitHub's practical size limits will be hosted externally (e.g., Zenodo) and linked here once uploaded.
 
 ## Model Weights
 
-Trained U-Net weights are hosted separately due to file size and will be linked here (Hugging Face Hub / GitHub Releases). Instructions for loading the weights into `Assignment.ipynb` will be added alongside the release.
+Trained U-Net weights is in Model21.h5. Instructions for loading the weights into `Bacteria identification_and_counting.ipynb` will be added alongside the release.
 
 ## Requirements
 
@@ -70,7 +69,7 @@ pip install -r requirements.txt
 ## Usage
 
 1. Clone the repository and install dependencies.
-2. Open `Assignment.ipynb` in Jupyter.
+2. Open `Bacteria identification_and_counting.ipynb` in Jupyter.
 3. Point the notebook to your image directory (e.g., `Location1/`).
 4. Run cells to preprocess images (denoising, intensity normalization, patching), train or load the U-Net model, and generate bacterial counts / growth curves.
 
