@@ -38,7 +38,7 @@ Bacteria-counting/
 
 **Dataset:**  ~1,600 - 1,700 annotated *E. coli* cells plus negative-control and *S. aureus* images, from 19 full-resolution microscopy images (2076 × 3088 px) split into 7,296 patches of 128 × 128 px. Ground-truth masks were manually annotated in ImageJ. Split: 80% train / 20% validation.
 
-**Quantification:** Connected-component labeling on U-Net output masks, with size-threshold filtering (within 95% confidence interval mean ± 2 SD of manually measured single-cell area ) for *E. coli*; watershed segmentation + area-based proportional assignment for clustered *S. aureus* cocci.
+**Quantification:** Connected-component labeling on U-Net output masks, with size-threshold filtering ( mean ± 2 SD of manually measured single-cell area ) for *E. coli*; watershed segmentation + area-based proportional assignment for clustered *S. aureus* cocci.
 
 ## Data
 
